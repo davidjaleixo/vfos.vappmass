@@ -1,0 +1,111 @@
+<section>
+  <div class="container" style="padding-top: 25px;">
+    <nav aria-label="breadcrumb" *ngIf="!loadingprojects">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/landing">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home/machines">Machines</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home/machines/{{project.idprojects}}">{{project.name}}</a></li>
+        <li class="breadcrumb-item active">Peel's samples history</li>
+      </ol>
+    </nav>
+
+    <div class="rows mb-3">
+      <div>
+        <h1>Peel tests
+
+        </h1>
+
+      </div>
+      <!--Slump table -->
+      <div class="mb-3">
+        <table class="table table-striped" [mfData]="slumps" #mf="mfDataTable" [mfRowsOnPage]="5">
+          <thead>
+            <tr>
+              <th>
+                Value
+              </th>
+              <th>
+                <mfDefaultSorter by="compositionname">Ribbon Number</mfDefaultSorter>
+              </th>
+              <th>
+                <mfDefaultSorter by="suppliername">Ribbon Supplier</mfDefaultSorter>
+              </th>
+              <th>Load</th>
+              <th>Created by</th>
+              <th>
+                <mfDefaultSorter by="date">Created At</mfDefaultSorter>
+              </th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let slump of mf.data">
+
+
+              <td>{{ slump.value }}</td>
+              <td>{{ slump.compositionname }}</td>
+              <td>{{ slump.suppliername }}</td>
+              <td>{{ slump.loadid }}</td>
+              <td>{{ slump.username }}</td>
+              <td>{{ slump.date }}</td>
+              <td>
+                <button class="btn btn-sm btn-danger" (click)="deleteSlump(slump.idslumptests)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+              </td>
+
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan=6>
+                <mfBootstrapPaginator [rowsOnPageSet]="[5,10,25]"></mfBootstrapPaginator>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+      <!--End Slump table -->
+
+
+
+      <!-- Chart -->
+
+
+
+      <div class="rows mb-3">
+
+        <div class="card">
+          <div class="card-header">
+            <h3>Analytics</h3>
+
+
+            <label>Select ribbon number to analyse</label>
+            <select class="form-control  mb-3" [(ngModel)]="pick_composition">
+              <option disabled selected value> Select the ribbon number </option>
+              <option [ngValue]="avcomps" *ngFor="let avcomps of available_compositions">{{avcomps}}</option>
+            </select>
+
+            <button (click)="updatechart()" data-dismiss="modal" class="btn btn-vfos">Update chart</button>
+
+
+          </div>
+          <div class="card-body">
+            <h5 class="card-title mb-3" *ngIf="pick_composition">Data related to {{pick_composition}}</h5>
+            <div *ngIf="chart">
+              <canvas id="canvas">{{ chart }}</canvas>
+            </div>
+          </div>
+        </div>
+
+
+
+
+      </div>
+
+      <!-- Chart END -->
+
+    </div>
+
+
+    <!-- <button (click)="saveSlumptest()" data-dismiss="modal" class="btn btn-vfos">test</button> -->
+  </div>
+</section>

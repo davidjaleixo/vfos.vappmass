@@ -1,0 +1,146 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <div class="container">
+      <a class="navbar-brand" href="/">Peeltest Feedback</a>
+      <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+        aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+
+          <!-- example start -->
+
+          <!-- example finish -->
+
+          <li class="nav-item dropdown" *ngIf="user">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+
+              <i class="fa fa-bell"></i>
+              <span *ngIf="unread.length > 0" class="badge badge badge-notify">{{unread.length}}</span>
+
+            </a>
+            <div *ngIf="unread.length == 0" class="dropdown-menu notification-dropdown-menu"
+              aria-labelledby="notifications-dropdown">
+              <h6 class="dropdown-header">Seems you have no unread notifications...</h6>
+              <!-- footer -->
+              <a class="dropdown-item dropdown-notification-all" routerLink="notifications">
+                View your previous notifications
+              </a>
+            </div>
+
+            <div *ngIf="unread.length > 0" class="dropdown-menu notification-dropdown-menu"
+              aria-labelledby="notifications-dropdown">
+              <h6 class="dropdown-header">{{unread.length}} unread notifications <a class="text-right"
+                  (click)="unreadall()"> Mark all as read</a></h6>
+
+
+              <div class="notifications-container">
+
+                <div *ngFor="let unreadnots of unread">
+                  <a class="dropdown-item dropdown-notification" (click)="read(unreadnots.idnotification)">
+                    <div class="notification-read">
+                      <i class="fa fa-times" aria-hidden="true"></i>
+                    </div>
+                    <!-- <img class="notification-img" src="https://placehold.it/48x48" alt="Icone Notification"> -->
+                    <div class="notifications-body">
+                      <p class="notification-texte">Project: {{unreadnots.projectname}}</p>
+                      <p *ngIf="unreadnots.type == 'predicted'" class="notification-texte">Composition:
+                        {{unreadnots.compositionname}} -
+                        <span class="badge badge-warning">{{unreadnots.type}}</span>
+                        {{unreadnots.predictedvalue}} mm
+                      </p>
+                      <p *ngIf="unreadnots.type == 'measured'" class="notification-texte">Composition:
+                        {{unreadnots.compositionname}} -
+                        <span class="badge badge-danger">{{unreadnots.type}}</span>
+                        {{unreadnots.value}} mm
+                      </p>
+
+                      <p class="notification-texte">
+                        Supplier: {{unreadnots.suppliername}}
+                      </p>
+                      <p class="notification-date text-muted">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i> {{unreadnots.date}}
+                      </p>
+                    </div>
+                  </a>
+                </div>
+              </div>
+
+
+
+              <!-- footer -->
+              <a class="dropdown-item dropdown-notification-all" routerLink="notifications">
+                View all
+              </a>
+
+            </div>
+          </li>
+
+          <li class="nav-item dropdown" *ngIf="user">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+              aria-haspopup="true" aria-expanded="false">
+              {{user.username}}
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <a class="dropdown-item" href="#" (click)="logout()">Sign out</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="machines">Machines</a>
+              <a class="dropdown-item" routerLink="notifications">Notifications <span *ngIf="unread.length >0"
+                  class="btn btn-danger badge badge-info">{{unread.length}}</span></a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" routerLink="settings">Accounts Settings</a>
+            </div>
+          </li>
+          <li class="nav-item" *ngIf="!user">
+            <a class="nav-link" routerLink="/login" href="#">Login</a>
+          </li>
+          <li class="nav-item" *ngIf="!user">
+            <a class="nav-link" routerLink="/register" href="#">Register</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
+<main role="main">
+  <router-outlet></router-outlet>
+</main>
+<footer class="footer bg-light">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 h-100 text-center text-lg-left my-auto">
+        <ul class="list-inline mb-2">
+          <li class="list-inline-item">
+            <a href="#">About</a>
+          </li>
+          <li class="list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#">Contact</a>
+          </li>
+          <li class="list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#">Terms of Use</a>
+          </li>
+          <li class="list-inline-item">&sdot;</li>
+          <li class="list-inline-item">
+            <a href="#">Privacy Policy</a>
+          </li>
+        </ul>
+        <p class="text-muted small mb-4 mb-lg-0">&copy; Copyright 2019 - Produced by Knowledgebiz @ vf-OS EU Project</p>
+      </div>
+      <div class="col-lg-6 h-100 text-center text-lg-right my-auto">
+        <ul class="list-inline mb-0">
+          <li class="list-inline-item mr-3">
+            <a href="http://www.vf-os.eu">
+              <img src="http://informationcatalyst.com/wp-content/uploads/2016/06/vf-os_logo.png"
+                style="max-height:40px">
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</footer>

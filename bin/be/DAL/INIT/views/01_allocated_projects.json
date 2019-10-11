@@ -1,0 +1,4 @@
+{
+    "view_definition_query":"select proj.name, proj.description, proj.status, proj.idprojects, usr.idaccounts from mass.projects as proj left join mass.users as usr on proj.idprojects = usr.idprojects",
+    "view_name":"allocated_projects"
+ }

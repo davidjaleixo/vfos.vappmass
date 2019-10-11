@@ -1,0 +1,26 @@
+<div class="text-center">
+  <form class="form-signin" [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+    <img class="mb-4" src="assets/img/vfos-logo.png" alt="vf-os" height="50px">
+    <h1 class="h2 mb-3 font-weight-normal">Peel Feedback</h1>
+    <label for="inputEmail" class="sr-only">Email</label>
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email" required
+      formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+
+    <div *ngIf="submitted && f.username.invalid" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Email is required</div>
+      <div *ngIf="f.username.errors.email">Email must be a valid email address</div>
+    </div>
+
+    <label for="inputPassword" class="sr-only">Password</label>
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required
+      formControlName="password" [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+    <div *ngIf="submitted && f.password.invalid" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+    </div>
+    <button class="btn btn-lg btn-vfos btn-block">Sign in</button>
+    <img class="mb-4"
+      src="https://static.wixstatic.com/media/851c99_906b40e5572d46c7accac027bb79a057~mv2.png/v1/fill/w_148,h_148,al_c,usm_0.66_1.00_0.01/851c99_906b40e5572d46c7accac027bb79a057~mv2.png"
+      alt="" width="72" height="72">
+
+  </form>
+</div>

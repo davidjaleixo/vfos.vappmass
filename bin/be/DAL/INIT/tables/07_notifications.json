@@ -1,0 +1,80 @@
+{
+   "columns": [
+      {
+         "allow_null": false,
+         "name": "read",
+         "type": "boolean"
+      },
+      {
+         "name": "date",
+         "type": "TIMESTAMP"
+      },
+      {
+         "name": "idNotification",
+         "type": "serial"
+      },
+      {
+         "name": "idAccounts",
+         "type": "serial"
+      },
+      {
+         "name": "idSlumptests",
+         "type": "serial"
+      },
+      {
+         "allow_null": true,
+         "default": "none",
+         "name": "type",
+         "size": 50,
+         "type": "varchar"
+      },
+      {
+         "allow_null": true,
+         "name": "predictedvalue",
+         "type": "integer"
+      }
+   ],
+   "constraints": [
+      {
+         "foreign_key": {
+            "columns": [
+               "idAccounts"
+            ],
+            "name": "fk_idAccounts",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE",
+            "referenced_columns": [
+               "idAccounts"
+            ],
+            "referenced_table_name": "accounts"
+         },
+         "foreign_key": {
+            "columns": [
+               "idSlumptests"
+            ],
+            "name": "fk_idSlumptests",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE",
+            "referenced_columns": [
+               "idSlumptests"
+            ],
+            "referenced_table_name": "slumptests"
+         },
+         "primary_key": {
+            "columns": [
+               "idNotification"
+            ],
+            "name": "pk_idNotification",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE"
+         },
+         "unique": {
+            "columns": [
+               "idNotification"
+            ],
+            "name": "idNotification"
+         }
+      }
+   ],
+   "table_name": "notifications"
+}

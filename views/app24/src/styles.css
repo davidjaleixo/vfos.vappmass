@@ -1,0 +1,101 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import url('../node_modules/bootstrap/dist/css/bootstrap.css');
+@import url('../node_modules/bootstrap4-toggle/css/bootstrap4-toggle.css');
+
+/*custom*/
+
+body {
+    margin-top: 50px;
+}
+
+.btn-vfos {
+    color: #fff;
+    background-color: #461E68;
+    border-color: white;
+}
+
+.btn-vfos:hover {
+    color: #fff;
+    background-color: rgb(133, 51, 204);
+    border-color: white;
+}
+
+.btn-vfos:focus, .btn-vfos.focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.btn-vfos.disabled, .btn-vfos:disabled {
+    color: #fff;
+    background-color: rgb(33, 13, 49);
+    border-color: grey;
+}
+
+.btn-vfos:not(:disabled):not(.disabled):active, .btn-vfos:not(:disabled):not(.disabled).active, .show>.btn-vfos.dropdown-toggle {
+    color: #fff;
+    background-color: #0062cc;
+    border-color: #005cbf;
+}
+
+.btn-vfos:not(:disabled):not(.disabled):active:focus, .btn-vfos:not(:disabled):not(.disabled).active:focus, .show>.btn-vfos.dropdown-toggle:focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+}
+
+.btn-outline-vfos {
+    color: #461E68;
+    background-color: transparent;
+    background-image: none;
+    border-color: #461E68;
+}
+
+.jumbotron {
+    background-image: url('assets/img/bg-header.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-bottom: 0;
+}
+
+header.masthead {
+    position: relative;
+    padding-top: 8rem;
+    padding-bottom: 8rem;
+}
+
+header.masthead .overlay {
+    position: absolute;
+    background-color: #212529;
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    opacity: 0.3;
+}
+
+header.masthead h1 {
+    font-size: 2rem;
+}
+
+@media (min-width: 768px) {
+    header.masthead {
+        padding-top: 12rem;
+        padding-bottom: 12rem;
+    }
+    header.masthead h1 {
+        font-size: 3rem;
+    }
+}
+
+.showcase .showcase-text {
+    padding: 3rem;
+}
+
+.showcase .showcase-img {
+    min-height: 30rem;
+    background-size: cover;
+}
+
+@media (min-width: 768px) {
+    .showcase .showcase-text {
+        padding: 7rem;
+    }
+}

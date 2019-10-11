@@ -1,0 +1,51 @@
+<div class="text-center">
+  <form class="form-signin" [formGroup]="registerForm" (ngSubmit)="onSubmit()" novalidate>
+    <img class="mb-4" src="assets/img/vfos-logo.png" alt="vf-os" height="50px">
+    <h1 class="h2 mb-3 font-weight-normal">Peel Feedback - Registration</h1>
+
+
+
+
+    <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required="" autofocus=""
+      formControlName="username" [ngClass]="{ 'is-invalid': submitted && f.username.errors }">
+    <div *ngIf="submitted && f.username.invalid" class="invalid-feedback">
+      <div *ngIf="f.username.errors.required">Email is required</div>
+      <div *ngIf="f.username.errors.email">Email must be a valid email address</div>
+    </div>
+
+
+
+    <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
+      autocomplete="new-password" formControlName="password"
+      [ngClass]="{ 'is-invalid': submitted && f.password.errors }">
+
+    <div *ngIf="submitted && f.password.invalid" class="invalid-feedback">
+      <div *ngIf="f.password.errors.required">Password is required</div>
+    </div>
+
+
+    <input type="password" id="inputPasswordrepeat" class="form-control" placeholder="Repeat Password" required=""
+      formControlName="passwordrepeat" [ngClass]="{ 'is-invalid': submitted && f.passwordrepeat.errors }">
+    <div *ngIf="submitted && f.passwordrepeat.invalid" class="invalid-feedback">
+      <div *ngIf="f.passwordrepeat.errors.required">Password is required</div>
+      <div *ngIf="f.passwordrepeat.errors.mustMatch">Passwords must match</div>
+    </div>
+
+
+    <select class="form-control" formControlName="type" placeholder="Account type" id="typeacc"
+      [ngClass]="{ 'is-invalid': submitted && f.type.errors }">
+      <option [ngValue]="avtypes.value" *ngFor="let avtypes of acctypes">{{avtypes.name}}</option>
+    </select>
+    <div *ngIf="submitted && f.type.invalid" class="invalid-feedback">
+      <div *ngIf="f.type.errors.required">Account type is required</div>
+    </div>
+
+
+    <button class="btn btn-lg btn-vfos btn-block">Register</button>
+
+    <img class="mb-4"
+      src="https://static.wixstatic.com/media/851c99_906b40e5572d46c7accac027bb79a057~mv2.png/v1/fill/w_148,h_148,al_c,usm_0.66_1.00_0.01/851c99_906b40e5572d46c7accac027bb79a057~mv2.png"
+      alt="" width="72" height="72">
+
+  </form>
+</div>

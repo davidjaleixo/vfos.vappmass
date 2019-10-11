@@ -1,0 +1,6 @@
+{
+    "view_definition_query":"select slt.idslumptests, slt.value, slt.date, slt.loadid, slt.idprojects, pr.name as projectname, slt.idsuppliers, supp.name as suppliername, slt.idaccounts, acc.username, slt.idcompositions, com.name as compositionname, com.tholdmax, com.tholdmin from mass.slumptests as slt left join mass.projects as pr on pr.idprojects = slt.idprojects left join mass.suppliers as supp on supp.idsuppliers = slt.idsuppliers left join mass.accounts as acc on acc.idaccounts = slt.idaccounts left join mass.compositions as com on com.idcompositions = slt.idcompositions",
+    "view_name":"slump_history"
+ }
+ 
+ 

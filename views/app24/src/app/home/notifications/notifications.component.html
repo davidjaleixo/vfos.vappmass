@@ -1,0 +1,59 @@
+<section>
+  <div class="container" style="padding-top: 25px;">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/landing">Home</a></li>
+        <li class="breadcrumb-item active">Notifications</li>
+      </ol>
+    </nav>
+
+    <div class="rows mb-3">
+      <div>
+        <h1>Notifications
+
+        </h1>
+
+      </div>
+      <!--Notifications table -->
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Machine</th>
+            <th>Ribbon Supplier</th>
+            <th>Ribbon Number</th>
+            <th>Peel sample</th>
+            <th>Type</th>
+            <th>Created At</th>
+            <th>Options</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let noti of notifications">
+            <td>{{ noti.projectname }}</td>
+            <td>{{ noti.suppliername }}</td>
+            <td>{{ noti.compositionname }}</td>
+            <td *ngIf="noti.type == 'measured' ">{{ noti.value }}</td>
+            <td *ngIf="noti.type == 'predicted' ">{{ noti.predictedvalue }}</td>
+            <td *ngIf="noti.type == 'predicted' "><span class="badge badge-warning">Predicted</span></td>
+            <td *ngIf="noti.type == 'measured' "><span class="badge badge-danger">Measured</span></td>
+            <td>{{ noti.date}}</td>
+            <td>
+              <button *ngIf="noti.read == 'f' " (click)="read(noti.idnotification)"
+                class="btn-sm btn-default">Read</button>
+              <button *ngIf="noti.read == 't' " (click)="unread(noti.idnotification)"
+                class="btn-sm btn-default">Unread</button>
+                <button class="btn btn-sm btn-danger" (click)="deleteNotification(noti.idnotification)"><i class="fa fa-trash-o" aria-hidden="true"></i></button>
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+      <!--End Notifications table -->
+
+
+    </div>
+
+
+  </div>
+</section>

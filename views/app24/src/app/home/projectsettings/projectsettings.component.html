@@ -1,0 +1,280 @@
+<section>
+  <div class="container" style="padding-top: 25px;">
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a routerLink="/home/landing">Home</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home/machines">Machines</a></li>
+        <li class="breadcrumb-item"><a routerLink="/home/machines/{{project.idprojects}}">{{project.name}}</a></li>
+        <li class="breadcrumb-item active">Settings</li>
+      </ol>
+    </nav>
+    <!-- Settings section -->
+    <div class="card mb-3">
+      <div class="card-header">
+        General Settings
+        <button class=" float-right btn btn-sm btn-vfos" (click)="deleteProject(project.idprojects)"><i
+            class="fa fa-trash"></i> Delete machine</button>
+      </div>
+      <div class="card-body">
+        <table class="table">
+
+          <tbody>
+            <tr>
+              <th>Name</th>
+              <th>
+                <input type="text" [(ngModel)]="project.name" class="form-control" placeholder="Name"
+                  aria-label="Project Name">
+              </th>
+              <th>
+                <button class="btn btn-sm btn-secondary" (click)="updateName(project.idprojects)">Update</button>
+              </th>
+            </tr>
+            <tr>
+              <th>Company</th>
+              <th>
+                <input type="text" [(ngModel)]="project.description" class="form-control" placeholder="Company"
+                  aria-label="Machine company">
+              </th>
+              <th>
+                <button class="btn btn-sm btn-secondary" (click)="updateDescription(project.idprojects)">Update</button>
+              </th>
+            </tr>
+            <tr>
+              <th>Status</th>
+              <th>
+                <span *ngIf="project.status == 't'" class="badge badge-success">ongoing</span>
+                <span *ngIf="project.status != 't'" class="badge badge-danger">stopped</span>
+              </th>
+              <th>
+                <button *ngIf="project.status == 't'" class="btn btn-sm btn-secondary"
+                  (click)="updateStatus(project.idprojects)"> Stop</button>
+                <button *ngIf="project.status != 't'" class="btn btn-sm btn-secondary"
+                  (click)="updateStatus(project.idprojects)">Start</button>
+              </th>
+            </tr>
+            <!-- <tr>
+              <th>Threshold</th>
+              <th>
+                <input type="number" min="0" class="form-control" [(ngModel)]="project.threshold" placeholder="100"
+                  aria-label="Project Threshold">
+              </th>
+              <th><button class="btn btn-sm btn-secondary" (click)="updateThold(project.idprojects)">Update</button>
+              </th>
+
+            </tr> -->
+          </tbody>
+        </table>
+
+
+      </div>
+    </div>
+    <!-- Settings section END -->
+    <div class="card mb-3">
+      <div class="card-header">
+        Ribbon Suppliers
+        <button class="float-right btn btn-sm btn-vfos" data-target="#addeq" data-toggle="modal">
+          <i class="fa fa-plus"></i> Add</button>
+      </div>
+      <div class="card-body">
+
+        <table class="table">
+          <tbody>
+            <tr *ngFor="let supp of suppliers">
+              <td>{{supp.name}}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteEq(supp.idsuppliers)">
+                  <i class="fa fa-trash"></i>
+                </button>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- COMPOSITIONS START -->
+    <div class="card mb-5">
+      <div class="card-header">
+        Ribbon numbers
+        <button class="float-right btn btn-sm btn-vfos" data-target="#addcomposition" data-toggle="modal">
+          <i class="fa fa-plus"></i> Add</button>
+      </div>
+      <div class="card-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Min Threshold</th>
+              <th scope="col">Max Threshold</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let comps of compositions">
+              <td>{{comps.name}}</td>
+              <td>{{comps.tholdmin}}</td>
+              <td>{{comps.tholdmax}}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteComposition(comps.idcompositions)">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <!-- <button class="btn btn-warning btn-sm" (click)="idCheck(user.idaccounts, user.username)"
+                  data-target="#editRoles" data-toggle="modal">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button> -->
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- COMPOSITIONS END -->
+
+    <!-- USERS START -->
+    <div class="card mb-5">
+      <div class="card-header">
+        Users
+        <button class="float-right btn btn-sm btn-vfos" data-target="#adduser" data-toggle="modal">
+          <i class="fa fa-plus"></i> Add</button>
+      </div>
+      <div class="card-body">
+
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Name</th>
+              <th scope="col">Role</th>
+              <th scope="col">Options</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{user.username}}</td>
+              <td>
+                <span *ngIf="user.idroles=='1'" class="badge badge-info">Contractor</span>
+                <span *ngIf="user.idroles=='2'" class="badge badge-success">Admin</span>
+                <span *ngIf="user.idroles=='3'" class="badge badge-warning">Provider</span>
+              </td>
+              <td>
+                <button class="btn btn-danger btn-sm" (click)="deleteUser(user.idusers)">
+                  <i class="fa fa-trash"></i>
+                </button>
+                <!-- <button class="btn btn-warning btn-sm" (click)="idCheck(user.idaccounts, user.username)"
+                  data-target="#editRoles" data-toggle="modal">
+                  <i class="fa fa-pencil-square-o"></i>
+                </button> -->
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <!-- USERS END -->
+  </div>
+</section>
+
+<!-- New Supplier Modal -->
+<div id="addeq" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add supplier</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name</span>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="supplierName" placeholder="Supplier name"
+            aria-label="Supplier name">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="createSupplier()" data-dismiss="modal" class="btn btn-vfos">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--End Modal-->
+
+<!--New user Modal -->
+<div id="adduser" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add user</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <form [formGroup]="newUserForm">
+            <label for="userselect" id="idAccount">Select user</label>
+            <!-- <select class="form-control" formControlName="newuser" id="userselect">
+              <option [ngValue]="avuser" *ngFor="let avuser of availableusers | filter: {idroles: 2}">
+                {{avuser.username}} </option>
+            </select> -->
+
+            <select class="form-control" formControlName="newuser" id="userselect">
+              <optgroup *ngFor="let grp of groupedusers" label="{{grp.group}}">
+                <option [ngValue]="avuser" *ngFor="let avuser of grp.items">
+                  {{avuser.username}} </option>
+              </optgroup>
+            </select>
+
+
+
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="addUser()" data-dismiss="modal" class="btn btn-vfos">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- New composition Modal -->
+<div id="addcomposition" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Add ribbon number</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Name</span>
+          </div>
+          <input type="text" class="form-control" [(ngModel)]="newComp.name" placeholder="Ribbon number"
+            aria-label="Composition name">
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-append"><span class="input-group-text">Min Threshold</span></div>
+          <input type="number" min="0" inputmode="numeric" pattern="[0-9]*" class="form-control"
+            [(ngModel)]="newComp.tholdmin">
+          <div class="input-group-append"><span class="input-group-text">N</span></div>
+        </div>
+
+        <div class="input-group mb-3">
+          <div class="input-group-append"><span class="input-group-text">Max Threshold</span></div>
+          <input type="number" min="{{newComp.tholdmin}}" inputmode="numeric" pattern="[0-9]*" class="form-control"
+            [(ngModel)]="newComp.tholdmax">
+          <div class="input-group-append"><span class="input-group-text">N</span></div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button (click)="createComposition()" data-dismiss="modal" class="btn btn-vfos">Add</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--New composition End Modal-->

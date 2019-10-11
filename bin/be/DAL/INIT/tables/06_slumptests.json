@@ -1,0 +1,108 @@
+{
+   "columns": [
+      {
+         "allow_null": false,
+         "name": "value",
+         "type": "integer"
+      },
+      {
+         "allow_null":false,
+         "default":"load_identification",
+         "name":"loadid",
+         "size":100,
+         "type":"varchar"
+      },
+      {
+         "default": "now()",
+         "name": "date",
+         "type": "TIMESTAMP"
+      },
+      {
+         "name": "idSlumptests",
+         "type": "serial"
+      },
+      {
+         "name": "idProjects",
+         "type": "serial"
+      },
+      {
+         "name": "idSuppliers",
+         "type": "serial"
+      },
+      {
+         "name": "idCompositions",
+         "type": "serial"
+      },
+      {
+         "name": "idAccounts",
+         "type": "serial"
+      }
+   ],
+   "constraints": [
+      {
+         "foreign_key": {
+            "columns": [
+               "idProjects"
+            ],
+            "name": "fk_idProjects",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE",
+            "referenced_columns": [
+               "idProjects"
+            ],
+            "referenced_table_name": "projects"
+         },
+         "foreign_key": {
+            "columns": [
+               "idSuppliers"
+            ],
+            "name": "fk_idSuppliers",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE",
+            "referenced_columns": [
+               "idSuppliers"
+            ],
+            "referenced_table_name": "sluppliers"
+         },
+         "foreign_key": {
+            "columns": [
+               "idCompositions"
+            ],
+            "name": "fk_idCompositions",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE",
+            "referenced_columns": [
+               "idCompositions"
+            ],
+            "referenced_table_name": "sluppliers"
+         },
+         "foreign_key": {
+            "columns": [
+               "idAccounts"
+            ],
+            "name": "fk_idAccounts",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE",
+            "referenced_columns": [
+               "idAccounts"
+            ],
+            "referenced_table_name": "accounts"
+         },
+         "primary_key": {
+            "columns": [
+               "idSlumptests"
+            ],
+            "name": "pk_idSlumptests",
+            "on_delete": "CASCADE",
+            "on_update": "CASCADE"
+         },
+         "unique": {
+            "columns": [
+               "idSlumptests"
+            ],
+            "name": "unique_idSlumptests"
+         }
+      }
+   ],
+   "table_name": "slumptests"
+}

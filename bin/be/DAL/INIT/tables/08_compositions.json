@@ -1,0 +1,60 @@
+{
+    "columns": [
+        {
+            "allow_null": false,
+            "default": "composition_default",
+            "name": "name",
+            "size": 100,
+            "type": "varchar"
+        },
+        {
+            "allow_null": false,
+            "name": "tholdmax",
+            "type": "integer"
+        },
+        {
+            "allow_null": false,
+            "name": "tholdmin",
+            "type": "integer"
+        },
+        {
+            "name": "idCompositions",
+            "type": "serial"
+        },
+        {
+            "name": "idProjects",
+            "type": "serial"
+        }
+    ],
+    "constraints": [
+        {
+            "primary_key": {
+                "columns": [
+                    "idCompositions"
+                ],
+                "name": "pk_idCompositions",
+                "on_delete": "CASCADE",
+                "on_update": "CASCADE"
+            },
+            "unique": {
+                "columns": [
+                    "idCompositions"
+                ],
+                "name": "unique_idCompositions"
+            },
+            "foreign_key":{
+                "columns":[
+                   "idProjects"
+                ],
+                "name":"fk_idProjects",
+                "on_delete":"CASCADE",
+                "on_update":"CASCADE",
+                "referenced_columns":[
+                   "idProjects"
+                ],
+                "referenced_table_name":"projects"
+             }
+        }
+    ],
+    "table_name": "compositions"
+}

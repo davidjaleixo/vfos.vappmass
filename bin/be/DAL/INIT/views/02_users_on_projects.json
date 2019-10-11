@@ -1,0 +1,4 @@
+{
+    "view_definition_query":"select usr.idusers, usr.idprojects, acc.username, acc.idaccounts, acc.idroles, rol.accounttype from mass.users as usr left join mass.accounts as acc on acc.idaccounts = usr.idaccounts left join mass.roles as rol on rol.idroles = acc.idroles ",
+    "view_name":"users_on_projects"
+ }
