@@ -117,7 +117,7 @@ export class ProjectdetailsComponent implements OnInit {
       if (this.f.value.value >= this.f.compositionid.value.tholdmax || this.f.value.value <= this.f.compositionid.value.tholdmin) {
 
         //check if the introduced value is outside of the thresholds
-        var result = confirm("The slump test value is out of threshold's range - Notification will be sent!");
+        var result = confirm("The peel test value is out of threshold's range - Notification will be sent!");
         if (result) {
           //if the user wants to trigger a notification already
 
