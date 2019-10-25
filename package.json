@@ -36,7 +36,7 @@
     },
     "devDependencies": {},
     "scripts": {
-        "boot": "npm install && cd views/app24 && npm i && ng build --prod --aot --deploy-url=\"/appmass/\" --base-href=\"/appmass/\" ",
+        "boot": "npm install && cd views/app24 && npm i && ng build --prod --aot --deploy-url=\"/${ASSET_NAME}/\" --base-href=\"/${ASSET_NAME}/\" ",
         "start-be": "PORT=4201 node ./bin/be/index.js",
         "start": "concurrently --kill-others \"npm run start-be\""
     },
