@@ -6,6 +6,20 @@ var myforEach = require("async-foreach").forEach;
 var path = require('path');
 var recursiveReadSync = require('recursive-readdir-sync');
 
+var HashMap = require('hashmap');
+
+function compareNumbers(a, b) {
+    return a - b;
+}
+
+function getFileNameWithExtension(filename) {
+    for (var i = 0; i < filename.length; i++) {
+        if (filename.charAt(i) == '_') {
+            return filename.substring(i + 1, filename.length)
+        }
+    }
+}
+
 //returns an object with an array of files in the given path
 var readFilesFromFolder = function (inputPath) {
     try {
@@ -19,6 +33,37 @@ var readFilesFromFolder = function (inputPath) {
         }
     }
 
+
+    // DIRECTORY FILE NAME SORT START
+    let map = new HashMap();
+    let fileNumber = [];
+    // let path = files[0].toString().substring(0, files[0].toString().lastIndexOf("/") + 1);
+    for (var i = 0; i < files.length; i++) {
+
+        let fileName = files[i].toString().substring(files[i].toString().lastIndexOf("/") + 1, files[i].toString().length);
+        // console.log("fileName:", fileName);
+        fileNumber[i] = fileName.split("_")[0];
+        // console.log("setting hash k:", fileName.split("_")[0], "-v:", getFileNameWithExtension(fileName));
+        map.set(fileName.split("_")[0], getFileNameWithExtension(fileName));
+        // if (i == files.length - 1) {
+        //     console.log("unordered files: ", fileNumber);
+        // }
+    }
+
+    var orderedFileNumber = fileNumber.sort(compareNumbers);
+    // console.log("ordered files: ", orderedFileNumber);
+
+    for (var i = 0; i < files.length; i++) {
+        // console.log("hashmap value: ", map.get(orderedFileNumber[i]));
+        files[i] = (map.get(orderedFileNumber[i])).toString().slice(0, -5);
+        if (i == files.length - 1) {
+            return files;
+        }
+    }
+    // DIRECTORY FILE NAME SORT STOP
+
+
+
     let output = [];
     //loop over resulting files
     //console.log("Found the following files in", inputPath);
@@ -29,7 +74,8 @@ var readFilesFromFolder = function (inputPath) {
 
         //output.push(eachFile[eachFile.length - 1].split('_')[1].slice(0, -5));
         //remove the '0X_' and the '.json' extension
-        output.push(eachFile[eachFile.length - 1].substr(3).slice(0, -5));
+        // output.push(eachFile[eachFile.length - 1].substr(3).slice(0, -5));
+        output.push(eachFile[eachFile.length - 1].split('_')[1].slice(0, -5));
 
         if (i == files.length - 1) {
             //console.log(output);
@@ -50,7 +96,6 @@ var getExistingViews = function () {
 module.exports = {
     dbExists: function (cb) {
         storage('GET', '/tables', {}, function (err, response, body) {
-            console.log(response.statusCode);
             if (!err) {
                 if (response.statusCode == 404) {
                     cb(false);
@@ -74,8 +119,8 @@ module.exports = {
                         j = lenj - 1;
                     } else {
                         if (j == lenj - 1) {
-                            let answer = syncstorage('POST', '/views', require('.' + config.files.db.views + '/0' + (i + 1) + '_' + views[i] + '.json'));
-                            
+                            let answer = syncstorage('POST', '/views', require('.' + config.files.db.views + '/' + (i + 1) + '_' + views[i] + '.json'));
+
                             if (answer.statusCode == 201) {
                                 console.log(views[i], "Created");
                             } else {
@@ -95,7 +140,7 @@ module.exports = {
         } else {
             //create all views
             for (var i = 0, len = views.length; i < len; i++) {
-                let answer = syncstorage('POST', '/views', require('.' + config.files.db.views + '/0' + (i + 1) + '_' + views[i] + '.json'));
+                let answer = syncstorage('POST', '/views', require('.' + config.files.db.views + '/' + (i + 1) + '_' + views[i] + '.json'));
                 if (answer.statusCode == 201) {
                     console.log(views[i], "Created");
                 } else {
@@ -116,7 +161,6 @@ module.exports = {
     tablesExistsAndCreates: function (cb) {
         //get the list of tables
         let tables = readFilesFromFolder(config.files.db.tables);
-        // console.log(tables);
         let ExistingTables = getExistingTables();
         if (ExistingTables.length > 0) {
             for (var i = 0, len = tables.length; i < len; i++) {
@@ -127,7 +171,7 @@ module.exports = {
                         j = lenj - 1;
                     } else {
                         if (j == lenj - 1) {
-                            let answer = syncstorage('POST', '/tables', require('.' + config.files.db.tables + '/0' + (i + 1) + '_' + tables[i] + '.json'));
+                            let answer = syncstorage('POST', '/tables', require('.' + config.files.db.tables + '/' + (i + 1) + '_' + tables[i] + '.json'));
                             if (answer.statusCode == 201) {
                                 console.log(tables[i], "Created");
                             } else {
@@ -146,7 +190,7 @@ module.exports = {
             }
         } else {
             for (var i = 0, len = tables.length; i < len; i++) {
-                let answer = syncstorage('POST', '/tables', require('.' + config.files.db.tables + '/0' + (i + 1) + '_' + tables[i] + '.json'));
+                let answer = syncstorage('POST', '/tables', require('.' + config.files.db.tables + '/' + (i + 1) + '_' + tables[i] + '.json'));
                 if (answer.statusCode == 201) {
                     console.log(tables[i], "Created");
                 } else {
@@ -188,20 +232,20 @@ module.exports = {
             }
         })
     },
-    checkRoles: function(cb){
-        storage('GET', '/tables/roles/rows', {}, function(err, response, body){
-            if(!err){
+    checkRoles: function (cb) {
+        storage('GET', '/tables/roles/rows', {}, function (err, response, body) {
+            if (!err) {
                 if (response.statusCode == 200) {
                     console.info("Found ", JSON.parse(body).list_of_rows.length, " roles");
-                    if(JSON.parse(body).list_of_rows.length >= 3){
+                    if (JSON.parse(body).list_of_rows.length >= 3) {
                         cb(true);
-                    }else{
+                    } else {
                         cb(false);
                     }
                 } else {
                     cb(false);
                 }
-            }else{
+            } else {
                 cb(false);
             }
         })
@@ -231,22 +275,10 @@ module.exports = {
     },
     createTables: function (cb) {
 
-        // let initTables =
-        //     [
-        //         require('./INIT/tables/01_roles.json'),
-        //         require('./INIT/tables/02_accounts.json'),
-        //         require('./INIT/tables/03_projects.json'),
-        //         require('./INIT/tables/04_users.json'),
-        //         require('./INIT/tables/05_equipments.json'),
-        //         require('./INIT/tables/06_slumps.json'),
-        //         require('./INIT/tables/07_notifications.json')
-        //     ]
-
 
         //TABLES
         let initTables = readFilesFromFolder('/INIT/tables');
         let thisResponse = [];
-
         myforEach(initTables, function (tableInit, index, arr) {
             let eachres = { created: null, name: tableInit.table_name, index: index }
             let answer = syncstorage('POST', '/tables', tableInit);
