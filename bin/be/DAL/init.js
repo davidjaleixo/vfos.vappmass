@@ -216,7 +216,7 @@ module.exports = {
                 "Accept": config.storage.accept,
                 "Authorization": config.storage.auth
             },
-            body: config.storage.dataBaseName
+            body: JSON.stringify({database_name: config.storage.dataBaseName})
         }
         request(Requestoptions, function (error, response, body) {
 

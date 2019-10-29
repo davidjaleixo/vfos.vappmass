@@ -3,7 +3,7 @@
         "secret":"wertyuioplkjhgfds"
     },
     "storage":{
-        "url":"http://vfos02.ddns.net/vfrelstorage/vfos/rel/1.0.5",
+        "url":"http://reverse-proxy/vfrelstorage/vfos/rel/1.0.5",
         "contentType":"application/json",
         "accept": "application/json",
         "auth":"Basic cG9zdGdyZXM6dmZvcw==",
