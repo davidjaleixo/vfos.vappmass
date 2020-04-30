@@ -30,7 +30,7 @@
     "chart.js": "^2.8.0",
     "core-js": "^2.5.4",
     "glyphicons": "^0.2.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "jwt-decode": "^2.2.0",
     "ng2-charts": "^2.2.3",
     "ngx-loading-bar": "0.0.9",
