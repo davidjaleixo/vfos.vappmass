@@ -26,7 +26,7 @@
         "passport": "^0.4.0",
         "passport-local": "^1.0.0",
         "predict": "0.0.3",
-        "pug": "^2.0.3",
+        "pug": "^3.0.1",
         "recursive-readdir": "^2.2.2",
         "recursive-readdir-sync": "^1.0.6",
         "request": "^2.88.0",
